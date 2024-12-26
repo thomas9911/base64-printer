@@ -5,7 +5,11 @@ use std::borrow::Cow;
 use std::io::{self, IsTerminal, Write};
 
 fn is_ascii_printable(s: &str) -> bool {
-    s.chars().all(|c| c.is_ascii_graphic())
+    s.chars().all(valid_char)
+}
+
+fn valid_char(c: char) -> bool {
+    c.is_ascii_graphic() || c == ' ' || c == '\n'
 }
 
 struct Base64Swapper;
@@ -16,9 +20,8 @@ impl regex::Replacer for Base64Swapper {
             if let Ok(binary) = BASE64_STANDARD.decode(x.as_str()) {
                 if let Ok(string) = std::str::from_utf8(&binary) {
                     if is_ascii_printable(string) {
-                        dbg!(string);
                         dst.push_str(string);
-                        return
+                        return;
                     }
                 }
             }
@@ -41,14 +44,14 @@ fn main() -> io::Result<()> {
         print!("> ");
         io::stdout().flush()?;
         buffer_up = true;
-}
+    }
 
     let lines = io::stdin().lines();
     let mut out = Vec::new();
     for line in lines {
         let line = line?;
         if line.starts_with("\u{4}") {
-            break
+            break;
         }
         if buffer_up {
             out.push(replace_base64(&line).to_string());
