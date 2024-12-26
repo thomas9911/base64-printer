@@ -1,0 +1,8 @@
+stuff:
+  secret: aGFsbG8K
+  configMap:
+    key1: value1
+    key2: dGhpcyBpcyBhIHZlcnkgZ29vZCBzZWNyZXQK
+
+  something:
+    else: true
