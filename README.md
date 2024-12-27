@@ -3,6 +3,22 @@
 Takes in text with base64 encoded strings and prints them out. For instance in
 kubernetes configs.
 
+## Installation
+
+```sh
+cargo install --git https://github.com/thomas9911/base64-printer.git
+```
+
+Now you can use it by calling `base64-printer` in your terminal.
+
+Or
+
+```sh
+git clone https://github.com/thomas9911/base64-printer.git && cd ./base64-printer
+```
+
+Then you need to do `cargo run --release` ect
+
 ## Usage
 
 ```sh
